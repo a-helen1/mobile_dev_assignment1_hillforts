@@ -13,5 +13,8 @@ class MainApp : Application(), AnkoLogger {
   override fun onCreate() {
     super.onCreate()
     info("Placemark Started")
+    hillforts.add(HillfortModel("One", "About one..."))
+    hillforts.add(HillfortModel("Two", "About two..."))
+    hillforts.add(HillfortModel("Three", "About three..."))
   }
 }
