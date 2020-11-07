@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_hillfort.*
+import kotlinx.android.synthetic.main.activity_map.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 import org.wit.hillforts.R
 import org.wit.hillforts.helpers.readImage
@@ -15,13 +17,16 @@ import org.wit.hillforts.helpers.readImageFromPath
 import org.wit.hillforts.helpers.showImagePicker
 import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.HillfortModel
+import org.wit.hillforts.models.Location
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
   var hillfort = HillfortModel()
-  lateinit var app : MainApp
+  lateinit var app: MainApp
 
   val IMAGE_REQUEST = 1
+  val LOCATION_REQUEST = 2
+  //var location = Location(52.245696, -7.139102, 15f)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -66,6 +71,16 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     chooseImage.setOnClickListener {
       showImagePicker(this, IMAGE_REQUEST)
     }
+
+    hillfortLocation.setOnClickListener {
+      val location = Location(52.245696, -7.139102, 15f)
+      if (hillfort.zoom != 0f) {
+        location.lat = hillfort.lat
+        location.lng = hillfort.lng
+        location.zoom = hillfort.zoom
+      }
+      startActivityForResult(intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
+    }
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -86,13 +101,21 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     super.onActivityResult(requestCode, resultCode, data)
     when (requestCode) {
       IMAGE_REQUEST -> {
-        if (data != null)
+        if (data != null) {
           hillfort.image = data.getData().toString()
           hillfortImage.setImageBitmap(readImage(this, resultCode, data))
           chooseImage.setText(R.string.Change_hillfort_image)
+        }
+      }
+      LOCATION_REQUEST -> {
+        if (data != null) {
+          val location = data.extras?.getParcelable<Location>("location")!!
+          hillfort.lat = location.lat
+          hillfort.lng = location.lng
+          hillfort.zoom = location.zoom
+        }
       }
     }
   }
-
-
 }
+
