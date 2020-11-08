@@ -11,8 +11,21 @@
     <string name="save_hillfort">Save Hillfort</string>
     <string name="button_addImage1">Add Image 1</string>
     <string name="button_addImage2">Add Image 2</string>
+    <string name="button_login">Login</string>
+    <string name="button_signup">Signup</string>
     <string name="select_hillfort_image">Select Hillfort Image</string>
     <string name="Change_hillfort_image">Change Hillfort Image</string>
+    <string name="hillfort_visited">Hillfort Visited?</string>
     <string name="button_location">Set Location</string>
     <string name="title_activity_map">Map</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="title_activity_signup">Signup</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 </resources>
