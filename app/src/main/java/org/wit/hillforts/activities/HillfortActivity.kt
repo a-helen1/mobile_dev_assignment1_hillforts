@@ -28,6 +28,9 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
   val LOCATION_REQUEST = 2
   //var location = Location(52.245696, -7.139102, 15f)
 
+  //flag to set image 2
+  var image1 = false
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_hillfort)
@@ -39,14 +42,19 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
     var edit = false
 
+
     if (intent.hasExtra("hillfort_edit")) {
       edit = true
       hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
       hillfortTitle.setText(hillfort.title)
       hillfortDescription.setText(hillfort.description)
-      hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
-      if (hillfort.image != null) {
-        chooseImage.setText(R.string.Change_hillfort_image)
+      hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.image1))
+      hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
+      if (hillfort.image1 != null) {
+        chooseImage1.setText(R.string.Change_hillfort_image)
+      } else {
+        chooseImage2.setText(R.string.Change_hillfort_image)
+
       }
       btnAdd.setText(R.string.save_hillfort)
     }
@@ -68,7 +76,13 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
       finish()
     }
 
-    chooseImage.setOnClickListener {
+    chooseImage1.setOnClickListener {
+      image1 = true
+      showImagePicker(this, IMAGE_REQUEST)
+    }
+
+    chooseImage2.setOnClickListener {
+      image1 = false
       showImagePicker(this, IMAGE_REQUEST)
     }
 
@@ -106,9 +120,15 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     when (requestCode) {
       IMAGE_REQUEST -> {
         if (data != null) {
-          hillfort.image = data.getData().toString()
-          hillfortImage.setImageBitmap(readImage(this, resultCode, data))
-          chooseImage.setText(R.string.Change_hillfort_image)
+          if (image1) {
+            hillfort.image1 = data.getData().toString()
+            hillfortImage1.setImageBitmap(readImage(this, resultCode, data))
+            chooseImage1.setText(R.string.Change_hillfort_image)
+          } else {
+            hillfort.image2 = data.getData().toString()
+            hillfortImage2.setImageBitmap(readImage(this, resultCode, data))
+            chooseImage2.setText(R.string.Change_hillfort_image)
+          }
         }
       }
       LOCATION_REQUEST -> {

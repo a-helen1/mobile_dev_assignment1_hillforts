@@ -40,7 +40,15 @@ class HillfortAdapter constructor(
     fun bind(hillfort: HillfortModel, listener: HillfortListener) {
       itemView.hillfortTitle.text = hillfort.title
       itemView.hillfortDescription.text = hillfort.description
-      itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.image))
+
+       //if on image is null show the other on the  hillfort card
+
+        if (hillfort.image1.isNotEmpty()) {
+            itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.image1))
+        } else {
+            itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.image2))
+        }
+
       itemView.setOnClickListener { listener.onHillfortClick(hillfort) }
     }
   }
