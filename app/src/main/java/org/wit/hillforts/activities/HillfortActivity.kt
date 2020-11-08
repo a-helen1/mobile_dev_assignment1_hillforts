@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.CheckedTextView
 import kotlinx.android.synthetic.main.activity_hillfort.*
+import kotlinx.android.synthetic.main.activity_hillfort.view.*
 import kotlinx.android.synthetic.main.activity_map.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -51,13 +53,28 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
       hillfortDescription.setText(hillfort.description)
       hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.image1))
       hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
+
+      // change button text if an image exisis
+
       if (hillfort.image1 != null) {
         chooseImage1.setText(R.string.Change_hillfort_image)
       } else {
         chooseImage2.setText(R.string.Change_hillfort_image)
-
       }
+
+      //set checkbox form model
+
+      if (hillfort.visited) {
+        visitedHillfort.isChecked = true
+      }
+
       btnAdd.setText(R.string.save_hillfort)
+    }
+
+    visitedHillfort.setOnClickListener() {
+      if (visitedHillfort.isChecked) {
+        hillfort.visited = true
+      }
     }
 
     btnAdd.setOnClickListener() {
