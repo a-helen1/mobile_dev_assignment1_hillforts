@@ -53,11 +53,16 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
       hillfortDescription.setText(hillfort.description)
       hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.image1))
       hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
+
+      // change button text if an image exisis
+
       if (hillfort.image1 != null) {
         chooseImage1.setText(R.string.Change_hillfort_image)
       } else {
         chooseImage2.setText(R.string.Change_hillfort_image)
       }
+
+      //set checkbox form model
 
       if (hillfort.visited) {
         visitedHillfort.isChecked = true
