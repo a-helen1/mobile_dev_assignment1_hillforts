@@ -37,6 +37,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
     toolbarAdd.title = title
     setSupportActionBar(toolbarAdd)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     app = application as MainApp
 
@@ -111,6 +112,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         app.hillforts.delete(hillfort)
         finish()
       }
+
     }
     return super.onOptionsItemSelected(item)
   }

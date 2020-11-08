@@ -32,7 +32,10 @@
         </activity>
 
         <activity android:name=".activities.HillfortListActivity"></activity>
-        <activity android:name=".activities.HillfortActivity"> </activity>
+        <activity
+            android:name=".activities.HillfortActivity"
+            android:parentActivityName=".activities.HillfortListActivity">
+        </activity>
 
 
 
