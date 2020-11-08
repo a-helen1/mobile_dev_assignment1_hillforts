@@ -4,7 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_hillfort.view.*
 import kotlinx.android.synthetic.main.card_hillfort.view.*
+import kotlinx.android.synthetic.main.card_hillfort.view.hillfortDescription
+import kotlinx.android.synthetic.main.card_hillfort.view.hillfortTitle
 import org.wit.hillforts.R
 import org.wit.hillforts.helpers.readImageFromPath
 import org.wit.hillforts.models.HillfortModel
@@ -41,7 +44,7 @@ class HillfortAdapter constructor(
       itemView.hillfortTitle.text = hillfort.title
       itemView.hillfortDescription.text = hillfort.description
 
-       //if on image is null show the other on the  hillfort card
+       //if one image is null show the other on the  hillfort card
 
         if (hillfort.image1.isNotEmpty()) {
             itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.image1))

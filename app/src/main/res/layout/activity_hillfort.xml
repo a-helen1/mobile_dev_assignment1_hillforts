@@ -68,6 +68,15 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
+                <CheckBox
+                    android:id="@+id/visitedHillfort"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="8dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/hillfort_visited"
+                    android:textSize="24sp" />
+
                 <Button
                     android:id="@+id/chooseImage1"
                     android:layout_width="match_parent"
