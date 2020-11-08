@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import org.wit.hillforts.helpers.exists
 import org.wit.hillforts.helpers.read
 import org.wit.hillforts.helpers.write
@@ -38,6 +39,7 @@ class UserJSONStore  : UserStore, AnkoLogger {
         user.id = generateRandomUserId()
         users.add(user)
         serialize()
+        info("done adding user")
     }
 
     override fun update(hillfort: HillfortModel) {
@@ -49,12 +51,12 @@ class UserJSONStore  : UserStore, AnkoLogger {
     }
 
     private fun serialize(){
-        val jsonString = gsonUserBuilder.toJson(users, listType)
+        val jsonString = gsonUserBuilder.toJson(users, userListType)
         write(context, JSON_USERS_FILE, jsonString)
     }
 
     private fun deserialize() {
         val jsonString = read(context, JSON_USERS_FILE)
-        users = Gson().fromJson(jsonString, listType)
+        users = Gson().fromJson(jsonString, userListType)
     }
 }
